@@ -1,0 +1,51 @@
+App\Entity\User:
+  attributes:
+    normalization_context:
+      groups: ['user_read']
+    denormalization_context:
+      groups: ['user_write']
+  collectionOperations:
+    get:
+      method: 'GET'
+      security: 'is_granted("USER_READ")'
+  itemOperations:
+    get:
+      method: 'GET'
+      security: 'is_granted("USER_READ", object)'
+    put:
+      method: 'PUT'
+      security: 'is_granted("USER_UPDATE", object)'
+      swagger_context:
+        parameters:
+          - in: body
+            name: user
+            description: The user to update
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - roles
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                roles:
+                  type: array
+                  items:
+                    type: string
+    delete:
+      method: 'DELETE'
+      security: 'is_granted("USER_DELETE", object)'
+  properties:
+    projects:
+      subresource:
+        subresourceClass: 'App\Entity\User'
+        collection: true
+        maxDepth: 1
+    tasks:
+      subresource:
+        subresourceClass: 'App\Entity\Task'
+        collection: true
+        maxDepth: 1

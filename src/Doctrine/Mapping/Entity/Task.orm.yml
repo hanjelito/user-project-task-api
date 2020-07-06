@@ -1,0 +1,33 @@
+App\Entity\Task:
+  type: entity
+  table: task
+
+  id:
+    id:
+      type: string
+
+  manyToOne:
+    user:
+      targetEntity: User
+      inverseBy: tasks
+
+    project:
+      targetEntity: Project
+      inversedBy: tasks
+
+  fields:
+    name:
+      type: string
+      nullable: false
+    description:
+      type: string
+      nullable: false
+    createdAt:
+      type: datetime
+      nullable: false
+    updatedAt:
+      type: datetime
+      nullable: false
+
+  lifecycleCallbacks:
+    preUpdate: [markAsUpdated]

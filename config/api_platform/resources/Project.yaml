@@ -1,0 +1,59 @@
+App\Entity\Project:
+  attributes:
+    normalization_context:
+      groups: ['project_read']
+  collectionOperations:
+    get:
+      method: 'GET'
+      security: 'is_granted("PROJECT_READ")'
+    post:
+      method: 'POST'
+      security: 'is_granted("PROJECT_CREATE")'
+      denormalization_context:
+        groups: ['project_post']
+      openapi_context:
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  owner:
+                    type: string
+  itemOperations:
+    get:
+      method: 'GET'
+      security: 'is_granted("PROJECT_READ", object)'
+    put:
+      method: 'PUT'
+      security: 'is_granted("PROJECT_UPDATE", object)'
+      denormalization_context:
+        groups: ['project_put']
+      swagger_context:
+        parameters:
+          - in: body
+            name: project
+            description: The project to update
+            schema:
+              type: object
+              required:
+                - name
+                - description
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+    delete:
+      method: DELETE
+      security: 'is_granted("PROJECT_DELETE", object)'
+  properties:
+    categories:
+      subresource:
+        subresourceClass: 'App\Entity\Task'
+        collection: true
+        maxDepth: 1

@@ -1,0 +1,51 @@
+App\Entity\Task:
+  attributes:
+    normalization_context:
+      groups: ['task_read']
+  collectionOperations:
+    get:
+      method: 'GET'
+      security: 'is_granted("TASK_READ")'
+    post:
+      method: 'POST'
+      security: 'is_granted("TASK_CREATE")'
+      denormalization_context:
+        groups: ['task_post']
+      openapi_context:
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  user:
+                    type: string
+                  project:
+                    type: string
+  itemOperations:
+    get:
+      method: 'GET'
+      security: 'is_granted("TASK_READ", object)'
+    put:
+      method: 'PUT'
+      security: 'is_granted("TASK_UPDATE", object)'
+      denormalization_context:
+        groups: ['task_put']
+      openapi_context:
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+    delete:
+      method: DELETE
+      security: 'is_granted("TASK_DELETE", object)'

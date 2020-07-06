@@ -1,0 +1,33 @@
+App\Entity\Project:
+  type: entity
+  table: user_project
+
+  id:
+    id:
+      type: string
+
+  manyToOne:
+    owner:
+      targetEntity: User
+
+  manyToMany:
+    users:
+      targetEntity: User
+      mappedBy: projects
+
+  fields:
+    name:
+      type: string
+      nullable: false
+    description:
+      type: string
+      nullable: false
+    createdAt:
+      type: datetime
+      nullable: false
+    updatedAt:
+      type: datetime
+      nullable: false
+
+  lifecycleCallbacks:
+    preUpdate: [markAsUpdated]
