@@ -35,7 +35,7 @@ class TaskVoter extends BaseVoter
                 return $this->security->isGranted(Role::ROLE_ADMIN);
             }
 
-            if (null !== $subject->getGroup()) {
+            if (null !== $subject->getProject()) {
                 return $this->security->isGranted(Role::ROLE_ADMIN)
                     || $this->projectRepository->userIsMember($subject->getProject(), $tokenUser);
             }
@@ -49,7 +49,7 @@ class TaskVoter extends BaseVoter
         }
 
         if (\in_array($attribute, [self::TASK_UPDATE, self::TASK_DELETE])) {
-            if (null !== $subject->getGroup()) {
+            if (null !== $subject->getProject()) {
                 return $this->security->isGranted(Role::ROLE_ADMIN)
                     || $this->projectRepository->userIsMember($subject->getProject(), $tokenUser);
             }

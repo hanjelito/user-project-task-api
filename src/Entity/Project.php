@@ -35,8 +35,8 @@ class Project
     {
         $this->id = $id ?? Uuid::uuid4()->toString();
         $this->name = $name;
-        $this->owner = $owner;
         $this->description = $description;
+        $this->owner = $owner;
         $this->createdAt = new \Datetime();
         $this->users = new ArrayCollection();
         $this->tasks = new ArrayCollection();

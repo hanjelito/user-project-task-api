@@ -1,16 +1,14 @@
-App\Entity\Task:
+App\Entity\Project:
   attributes:
     id:
-      groups: ['task_read', 'expense_read']
+      groups: ['project_read']
     name:
-      groups: ['task_read', 'task_post', 'task_put']
+      groups: ['project_read', 'project_post', 'project_put']
     description:
-      groups: ['task_read', 'task_post', 'task_put']
-    user:
-      groups: ['task_read', 'task_post']
-    group:
-      groups: ['task_read', 'task_post']
+      groups: ['project_read', 'project_post', 'project_put']
+    owner:
+      groups: ['project_read', 'project_post']
     createdAt:
-      groups: ['task_read']
+      groups: ['project_read']
     updatedAt:
-      groups: ['task_read']
+      groups: ['project_read']
